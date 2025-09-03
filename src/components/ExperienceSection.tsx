@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Building2, Calendar, MapPin, TrendingUp } from "lucide-react";
+import { Building2, Calendar, MapPin, TrendingUp, GraduationCap } from "lucide-react";
+import AnimatedSection from "./AnimatedSection";
 
 const experiences = [
   {
@@ -49,140 +50,169 @@ const education = {
 
 const ExperienceSection = () => {
   return (
-    <section className="py-20 px-6 relative">
+    <section className="py-24 px-6 relative">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold cosmic-text-gradient mb-4">
+        
+        {/* Section Header */}
+        <AnimatedSection animation="animate-fade-in-up" className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold cosmic-text-gradient mb-6">
             Professional Journey
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             From Fortune 500 enterprises to innovative startups, building scalable solutions 
-            that drive real business impact.
+            that drive real business impact and deliver measurable results.
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Professional Experience */}
-        <div className="space-y-8 mb-16">
-          <h3 className="text-2xl font-semibold mb-6">Professional Experience</h3>
+        <div className="space-y-12 mb-20">
+          <AnimatedSection animation="animate-fade-in-left" delay={200}>
+            <h3 className="text-3xl font-bold cosmic-text-gradient mb-8">Professional Experience</h3>
+          </AnimatedSection>
+          
           {experiences.map((exp, index) => (
-            <Card 
+            <AnimatedSection
               key={index}
-              className={`bg-gradient-card border-cosmic-blue/20 hover:border-cosmic-purple/40 transition-all duration-300 hover:shadow-cosmic ${
-                exp.featured ? 'border-l-4 border-l-cosmic-blue' : ''
-              }`}
+              animation="animate-fade-in-up"
+              delay={300 + index * 200}
             >
-              <CardHeader className="pb-4">
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-gradient-primary/20">
-                        <Building2 className="w-5 h-5 text-primary" />
+              <Card className={`
+                bg-gradient-card border-cosmic-blue/20 hover:border-cosmic-purple/40 
+                transition-all duration-500 hover:shadow-cosmic group hover:-translate-y-1
+                ${exp.featured ? 'border-l-4 border-l-cosmic-blue shadow-cosmic/50' : ''}
+              `}>
+                <CardHeader className="pb-6">
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-4">
+                        <div className="p-3 rounded-xl bg-gradient-primary/20 group-hover:bg-gradient-primary/30 transition-all duration-300">
+                          <Building2 className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-2xl group-hover:cosmic-text-gradient transition-all duration-300">
+                            {exp.role}
+                          </CardTitle>
+                          <div className="flex items-center gap-3 mt-2">
+                            <span className="font-semibold text-primary text-lg">{exp.company}</span>
+                            <Badge variant="secondary" className="text-xs animate-glow-pulse">
+                              {exp.type}
+                            </Badge>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <CardTitle className="text-xl">{exp.role}</CardTitle>
-                        <div className="flex items-center gap-2 text-muted-foreground">
-                          <span className="font-medium text-primary">{exp.company}</span>
-                          <Badge variant="secondary" className="text-xs">
-                            {exp.type}
-                          </Badge>
+                      
+                      <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4 text-cosmic-blue" />
+                          <span className="font-medium">{exp.duration}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4 text-cosmic-purple" />
+                          <span className="font-medium">{exp.location}</span>
                         </div>
                       </div>
                     </div>
-                    
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {exp.duration}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
-                        {exp.location}
+                  </div>
+                </CardHeader>
+                
+                <CardContent className="space-y-6">
+                  <p className="text-muted-foreground leading-relaxed text-base">
+                    {exp.description}
+                  </p>
+                  
+                  <div className="space-y-4">
+                    <h4 className="font-semibold text-lg flex items-center gap-3">
+                      <TrendingUp className="w-5 h-5 text-primary" />
+                      Key Achievements & Impact
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {exp.achievements.map((achievement, achIndex) => (
+                        <div 
+                          key={achIndex} 
+                          className="flex items-start gap-3 p-3 rounded-lg bg-secondary/20 hover:bg-secondary/30 transition-all duration-300"
+                        >
+                          <div className="w-2 h-2 rounded-full bg-gradient-primary mt-2 flex-shrink-0 animate-pulse-glow" />
+                          <span className="text-muted-foreground text-sm leading-relaxed">{achievement}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-2 pt-4">
+                    {exp.tags.map((tag, tagIndex) => (
+                      <Badge
+                        key={tagIndex}
+                        variant="outline"
+                        className="text-xs border-cosmic-blue/30 hover:border-cosmic-purple/60 hover:cosmic-glow transition-all duration-300 hover:scale-105"
+                        style={{
+                          animationDelay: `${tagIndex * 100}ms`
+                        }}
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+          ))}
+        </div>
+
+        {/* Education Section */}
+        <div>
+          <AnimatedSection animation="animate-fade-in-left" delay={800}>
+            <h3 className="text-3xl font-bold cosmic-text-gradient mb-8">Education</h3>
+          </AnimatedSection>
+          
+          <AnimatedSection animation="animate-fade-in-up" delay={1000}>
+            <Card className="bg-gradient-card border-cosmic-blue/20 hover:border-cosmic-purple/40 transition-all duration-500 hover:shadow-cosmic group">
+              <CardHeader className="pb-6">
+                <div className="flex items-start gap-6">
+                  <div className="p-4 rounded-xl bg-gradient-secondary/20 group-hover:bg-gradient-secondary/30 transition-all duration-300">
+                    <GraduationCap className="w-8 h-8 text-accent" />
+                  </div>
+                  <div className="space-y-3 flex-1">
+                    <CardTitle className="text-2xl group-hover:cosmic-text-gradient transition-all duration-300">
+                      {education.degree}
+                    </CardTitle>
+                    <div className="space-y-2">
+                      <div className="font-semibold text-primary text-lg">{education.institution}</div>
+                      <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4 text-cosmic-blue" />
+                          <span className="font-medium">{education.duration}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4 text-cosmic-purple" />
+                          <span className="font-medium">{education.location}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </CardHeader>
               
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground leading-relaxed">
-                  {exp.description}
-                </p>
-                
-                <div className="space-y-3">
-                  <h4 className="font-medium flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4 text-primary" />
-                    Key Achievements
-                  </h4>
-                  <ul className="space-y-2">
-                    {exp.achievements.map((achievement, achIndex) => (
-                      <li key={achIndex} className="flex items-start gap-2 text-muted-foreground">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                        {achievement}
-                      </li>
+              <CardContent>
+                <div className="space-y-4">
+                  <h4 className="font-semibold text-lg">Relevant Coursework:</h4>
+                  <div className="flex flex-wrap gap-3">
+                    {education.coursework.map((course, index) => (
+                      <Badge
+                        key={index}
+                        variant="secondary"
+                        className="hover:cosmic-glow transition-all duration-300 hover:scale-105 px-4 py-2"
+                        style={{
+                          animationDelay: `${index * 100}ms`
+                        }}
+                      >
+                        {course}
+                      </Badge>
                     ))}
-                  </ul>
-                </div>
-                
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {exp.tags.map((tag, tagIndex) => (
-                    <Badge
-                      key={tagIndex}
-                      variant="outline"
-                      className="text-xs border-cosmic-blue/30 hover:border-cosmic-purple/60 transition-colors"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
+                  </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
-
-        {/* Education */}
-        <div>
-          <h3 className="text-2xl font-semibold mb-6">Education</h3>
-          <Card className="bg-gradient-card border-cosmic-blue/20 hover:border-cosmic-purple/40 transition-all duration-300">
-            <CardHeader>
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-lg bg-gradient-secondary/20">
-                  <Building2 className="w-6 h-6 text-accent" />
-                </div>
-                <div className="space-y-2">
-                  <CardTitle className="text-xl">{education.degree}</CardTitle>
-                  <div className="text-muted-foreground">
-                    <div className="font-medium text-primary">{education.institution}</div>
-                    <div className="flex items-center gap-4 text-sm mt-1">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {education.duration}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
-                        {education.location}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <h4 className="font-medium">Relevant Coursework:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {education.coursework.map((course, index) => (
-                    <Badge
-                      key={index}
-                      variant="secondary"
-                      className="hover:cosmic-glow transition-all duration-200"
-                    >
-                      {course}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          </AnimatedSection>
         </div>
       </div>
     </section>

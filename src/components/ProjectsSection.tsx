@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github, Award, Users, Zap, Eye, Brain, Shield } from "lucide-react";
+import AnimatedSection from "./AnimatedSection";
 
 const projects = [
   {
@@ -64,103 +65,143 @@ const projects = [
 
 const ProjectsSection = () => {
   return (
-    <section className="py-20 px-6 relative">
+    <section className="py-24 px-6 relative bg-gradient-to-b from-background/95 via-background to-background/95">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold cosmic-text-gradient mb-4">
+        
+        {/* Section Header */}
+        <AnimatedSection animation="animate-fade-in-up" className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold cosmic-text-gradient mb-6">
             Featured Projects
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Innovative solutions at the intersection of AI, cloud computing, and real-world problems.
-            From hackathon victories to production systems.
+            From hackathon victories to production systems, each project demonstrates technical excellence 
+            and practical impact.
           </p>
-        </div>
+        </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <Card 
+            <AnimatedSection
               key={index}
-              className={`bg-gradient-card border-cosmic-blue/20 hover:border-cosmic-purple/40 transition-all duration-300 hover:shadow-cosmic group ${
-                project.featured ? 'lg:col-span-2' : ''
-              }`}
+              animation="animate-fade-in-up"
+              delay={index * 150}
+              className={project.featured ? 'lg:col-span-2' : ''}
             >
-              <CardHeader className="pb-4">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-gradient-primary/20">
-                      <project.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg group-hover:cosmic-text-gradient transition-all duration-300">
-                        {project.title}
-                      </CardTitle>
-                      <Badge 
-                        variant="secondary" 
-                        className="mt-1 text-xs"
-                      >
-                        <Award className="w-3 h-3 mr-1" />
-                        {project.badge}
-                      </Badge>
+              <Card className="h-full bg-gradient-card border-cosmic-blue/20 hover:border-cosmic-purple/40 transition-all duration-500 hover:shadow-cosmic group hover:-translate-y-2">
+                
+                {/* Card Header */}
+                <CardHeader className="pb-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 rounded-xl bg-gradient-primary/20 group-hover:bg-gradient-primary/30 transition-all duration-300">
+                        <project.icon className="w-7 h-7 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <CardTitle className="text-xl font-bold group-hover:cosmic-text-gradient transition-all duration-300 leading-tight">
+                          {project.title}
+                        </CardTitle>
+                        <Badge 
+                          variant="secondary" 
+                          className="mt-2 text-xs animate-glow-pulse"
+                        >
+                          <Award className="w-3 h-3 mr-1" />
+                          {project.badge}
+                        </Badge>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardHeader>
-              
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground leading-relaxed">
-                  {project.description}
-                </p>
+                </CardHeader>
                 
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, tagIndex) => (
-                    <Badge
-                      key={tagIndex}
-                      variant="outline"
-                      className="text-xs border-cosmic-blue/30 hover:border-cosmic-purple/60 transition-colors"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-                
-                <div className="flex gap-2 pt-2">
-                  {project.link && (
-                    <Button
-                      variant="cosmic"
-                      size="sm"
-                      asChild
-                    >
-                      <a 
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                {/* Card Content */}
+                <CardContent className="space-y-6">
+                  <p className="text-muted-foreground leading-relaxed text-sm">
+                    {project.description}
+                  </p>
+                  
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag, tagIndex) => (
+                      <Badge
+                        key={tagIndex}
+                        variant="outline"
+                        className="text-xs border-cosmic-blue/30 hover:border-cosmic-purple/60 transition-all duration-300 hover:scale-105"
+                        style={{
+                          animationDelay: `${tagIndex * 50}ms`
+                        }}
                       >
-                        <ExternalLink className="w-3 h-3 mr-1" />
-                        View Project
-                      </a>
-                    </Button>
-                  )}
-                  {project.github && (
-                    <Button
-                      variant="cosmic-outline"
-                      size="sm"
-                      asChild
-                    >
-                      <a 
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex gap-3 pt-4">
+                    {project.link && (
+                      <Button
+                        variant="cosmic"
+                        size="sm"
+                        asChild
+                        className="flex-1 hover:scale-105 transition-all duration-300"
                       >
-                        <Github className="w-3 h-3 mr-1" />
-                        Code
-                      </a>
-                    </Button>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+                        <a 
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          View Project
+                        </a>
+                      </Button>
+                    )}
+                    {project.github && (
+                      <Button
+                        variant="cosmic-outline"
+                        size="sm"
+                        asChild
+                        className="flex-1 hover:scale-105 transition-all duration-300"
+                      >
+                        <a 
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Github className="w-4 h-4 mr-2" />
+                          Code
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
           ))}
         </div>
+
+        {/* Project Stats */}
+        <AnimatedSection animation="animate-fade-in-up" delay={1000} className="mt-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { label: "Projects Completed", value: "15+" },
+              { label: "Hackathon Wins", value: "3" },
+              { label: "GitHub Stars", value: "100+" },
+              { label: "Tech Stack", value: "20+" }
+            ].map((stat, index) => (
+              <div 
+                key={index}
+                className={`space-y-2 animate-fade-in-up-delay-${(index + 1) * 100}`}
+              >
+                <div className="text-3xl font-bold cosmic-text-gradient">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );

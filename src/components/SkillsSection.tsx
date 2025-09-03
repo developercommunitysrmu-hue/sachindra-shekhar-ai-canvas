@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Brain, Code, Database, Cloud, Cpu, Zap } from "lucide-react";
+import AnimatedSection from "./AnimatedSection";
 
 const skillCategories = [
   {
@@ -58,76 +59,139 @@ const skillCategories = [
   }
 ];
 
+const proficiencyData = [
+  { name: "Python & AI/ML", level: 95 },
+  { name: "Cloud Computing", level: 88 },
+  { name: "Backend Development", level: 92 },
+  { name: "Computer Vision", level: 90 },
+  { name: "System Design", level: 85 },
+  { name: "Quantum Computing", level: 70 }
+];
+
 const SkillsSection = () => {
   return (
-    <section className="py-20 px-6 relative">
+    <section className="py-24 px-6 relative bg-gradient-to-b from-background via-background/95 to-background">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold cosmic-text-gradient mb-4">
+        
+        {/* Section Header */}
+        <AnimatedSection animation="animate-fade-in-up" className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold cosmic-text-gradient mb-6">
             Technical Arsenal
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Advanced expertise across the full spectrum of modern technology stack,
-            specializing in AI/ML and scalable cloud systems.
+            specializing in AI/ML and scalable cloud systems with proven impact.
           </p>
-        </div>
+        </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Skills Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {skillCategories.map((category, index) => (
-            <Card 
+            <AnimatedSection
               key={index}
-              className="bg-gradient-card border-cosmic-blue/20 hover:border-cosmic-purple/40 transition-all duration-300 hover:shadow-cosmic group"
+              animation="animate-fade-in-up"
+              delay={index * 100}
             >
-              <CardHeader className="pb-4">
-                <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg bg-gradient-primary/20`}>
-                    <category.icon className="w-6 h-6 text-primary" />
+              <Card className="h-full bg-gradient-card border-cosmic-blue/20 hover:border-cosmic-purple/40 transition-all duration-500 hover:shadow-cosmic group hover:scale-105">
+                <CardHeader className="pb-6">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 rounded-xl bg-gradient-primary/20 group-hover:bg-gradient-primary/30 transition-all duration-300">
+                      <category.icon className="w-7 h-7 text-primary" />
+                    </div>
+                    <CardTitle className="text-xl font-bold group-hover:cosmic-text-gradient transition-all duration-300">
+                      {category.title}
+                    </CardTitle>
                   </div>
-                  <CardTitle className="text-lg">{category.title}</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill, skillIndex) => (
-                    <Badge
-                      key={skillIndex}
-                      variant="secondary"
-                      className="text-xs hover:cosmic-glow transition-all duration-200 cursor-default"
-                    >
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap gap-2">
+                      {category.skills.map((skill, skillIndex) => (
+                        <Badge
+                          key={skillIndex}
+                          variant="secondary"
+                          className="text-xs hover:cosmic-glow hover:scale-105 transition-all duration-300 cursor-default group-hover:border-cosmic-purple/30"
+                          style={{
+                            animationDelay: `${skillIndex * 50}ms`
+                          }}
+                        >
+                          {skill}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
           ))}
         </div>
 
         {/* Proficiency Levels */}
-        <div className="mt-16">
-          <h3 className="text-2xl font-bold text-center mb-8">Proficiency Levels</h3>
-          <div className="max-w-4xl mx-auto space-y-6">
-            {[
-              { name: "Python & AI/ML", level: 95 },
-              { name: "Cloud Computing", level: 88 },
-              { name: "Backend Development", level: 92 },
-              { name: "Computer Vision", level: 90 },
-              { name: "System Design", level: 85 },
-              { name: "Quantum Computing", level: 70 }
-            ].map((skill, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="font-medium">{skill.name}</span>
-                  <span className="text-muted-foreground">{skill.level}%</span>
-                </div>
-                <Progress 
-                  value={skill.level} 
-                  className="h-2 bg-space-gray"
-                />
-              </div>
-            ))}
+        <AnimatedSection animation="animate-fade-in-up" delay={600}>
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold cosmic-text-gradient mb-4">
+                Proficiency Levels
+              </h3>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Demonstrated expertise levels across core technology domains through 
+                practical projects and professional experience.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {proficiencyData.map((skill, index) => (
+                <AnimatedSection
+                  key={index}
+                  animation="animate-fade-in-right"
+                  delay={index * 150}
+                  className="space-y-3"
+                >
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold text-lg">{skill.name}</span>
+                    <span className="text-2xl font-bold cosmic-text-gradient">
+                      {skill.level}%
+                    </span>
+                  </div>
+                  <div className="relative">
+                    <Progress 
+                      value={skill.level} 
+                      className="h-3 bg-space-gray/50"
+                    />
+                    <div 
+                      className="absolute top-0 left-0 h-3 bg-gradient-primary rounded-full transition-all duration-1000 ease-out"
+                      style={{
+                        width: `${skill.level}%`,
+                        animationDelay: `${index * 200}ms`
+                      }}
+                    />
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
           </div>
-        </div>
+        </AnimatedSection>
+
+        {/* Tech Stack Highlights */}
+        <AnimatedSection animation="animate-fade-in-up" delay={1000} className="mt-20">
+          <div className="text-center">
+            <h3 className="text-2xl font-bold mb-8">Tech Stack Highlights</h3>
+            <div className="flex flex-wrap justify-center gap-4">
+              {[
+                "🐍 Python Expert", "🧠 AI/ML Specialist", "☁️ Cloud Native", 
+                "⚡ High Performance", "🔒 Security First", "🚀 Scalable Systems"
+              ].map((highlight, index) => (
+                <Badge
+                  key={index}
+                  variant="outline"
+                  className={`text-sm px-4 py-2 border-cosmic-blue/30 hover:border-cosmic-purple/60 hover:cosmic-glow transition-all duration-300 animate-fade-in-up-delay-${(index + 1) * 100}`}
+                >
+                  {highlight}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );
